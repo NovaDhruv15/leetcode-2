@@ -1,10 +1,8 @@
-import heapq
-from typing import List
 class Solution:
     def busiestServers(self, k: int, arrival: List[int], load: List[int]) -> List[int]:
-        free_servers = list(range(k))   
+        free_servers = list(range(k))
         working = []                    
-        handled = [0] * k
+        handled = [0] * k               
         for i in range(len(arrival)):
             start = arrival[i]
             time_needed = load[i]
@@ -19,5 +17,6 @@ class Solution:
                 server = heapq.heappop(free_servers) % k
                 heapq.heappush(working, (start + time_needed, server))
                 handled[server] += 1
+
         most = max(handled)
         return [s for s in range(k) if handled[s] == most]
